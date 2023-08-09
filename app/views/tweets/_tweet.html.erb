@@ -1,0 +1,18 @@
+<div id="<%= dom_id tweet %>">
+  <p class="my-5">
+
+  <%= link_to tweet do %>
+
+    <strong class="block font-medium mb-1">Tweet:</strong>
+    <%= tweet.user.email %> says
+    <%= tweet.tweet %>
+    <p>
+    at  <%= tweet.created_at %>
+    </p>
+
+    <hr class="mt-6">
+  <% end %>
+
+  </p>
+
+
