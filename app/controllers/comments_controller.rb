@@ -3,12 +3,14 @@ class CommentsController < ApplicationController
 
   # GET /comments or /comments.json
   def index
+    
     @comment = Comment.new
     @comments = Comment.includes(:user).order(created_at: :desc)
   end
 
   # GET /comments/1 or /comments/1.json
   def show
+  
   end
 
   # GET /comments/new
@@ -22,11 +24,13 @@ class CommentsController < ApplicationController
 
   # POST /comments or /comments.json
   def create
-    @comment = current_user.comments.new(comment_params)
+    @tweet = Tweet.find(params[:tweet_id])
+    @comment = @tweet.comments.new(comment_params)
+    @comment.user = current_user
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to comment_url(@comment), notice: "Comment was successfully created." }
+        format.html { redirect_to tweet_path(@tweet), notice: "Comment was successfully created." }
         format.json { render :show, status: :created, location: @comment }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -62,6 +66,7 @@ class CommentsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_comment
       @comment = Comment.find(params[:id])
+      
     end
 
     # Only allow a list of trusted parameters through.

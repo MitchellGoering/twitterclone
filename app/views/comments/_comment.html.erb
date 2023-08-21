@@ -1,7 +1,9 @@
 <div id="<%= dom_id comment %>">
   <p class="my-5">
-    <strong class="block font-medium mb-1">Comments:</strong>
-    <%= comment.comments %>
+    <strong class="block font-medium mb-1"></strong>
+    <%= comment.user.email %> says
+    <%= comment.comments %> at
+    <%= comment.created_at %>
   </p>
 
   <% if action_name != "show" %>

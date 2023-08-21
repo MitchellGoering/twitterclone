@@ -1,18 +1,17 @@
 <div id="<%= dom_id tweet %>">
   <p class="my-5">
+    <%= link_to tweet do %>
 
-  <%= link_to tweet do %>
-
-    <strong class="block font-medium mb-1">Tweet:</strong>
-    <%= tweet.user.email %> says
-    <%= tweet.tweet %>
-    <p>
-    at  <%= tweet.created_at %>
-    </p>
-
-    <hr class="mt-6">
-  <% end %>
-
+      <strong class="block font-medium justify-center mb-1">Tweet:</strong>
+      <%= tweet.user.email %> says
+      <%= tweet.tweet %>
+      <div class= "font-size smaller" >
+      at  <%= tweet.created_at %>
+      </div>
+    
+      Likes: <%= @likes %>
+      <hr class="mt-6 mb-3">
+    <% end %>
   </p>
 
 

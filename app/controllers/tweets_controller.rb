@@ -1,5 +1,13 @@
 class TweetsController < ApplicationController
-  before_action :set_tweet, only: %i[ show edit update destroy ]
+  before_action :set_tweet, only: %i[ like unlike show edit update destroy ]
+
+  def like
+    @tweet.likes.create(user: current_user, liked_at: Time.current)
+  end
+
+  def unlike
+    @tweet.likes.find_by(user: current_user).delete
+  end
 
   # GET /tweets or /tweets.json
   def index
@@ -9,8 +17,11 @@ class TweetsController < ApplicationController
 
   # GET /tweets/1 or /tweets/1.json
   def show
-    @comments = Comment.includes(:user)
+    @comments = @tweet.comments
     @comment = Comment.new
+    @likes = @tweet.likes.count
+
+  
   end
 
   # GET /tweets/new

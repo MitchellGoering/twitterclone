@@ -1,38 +1,45 @@
 <div>
 <section>
 
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
+  <div class="mx-auto md:w-2/3 w-full flex">
+    <div class="mx-auto">
+      <% if notice.present? %>
+        <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+      <% end %>
 
-    <%= render @tweet %>
+      <%= render @tweet %>
 
-    <%if @tweet.user_id == current_user.id %>
-      <%= link_to 'Edit tweet', edit_tweet_path(@tweet), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      <div class="inline-block ml-2">
-        <%= button_to 'Delete tweet', tweet_path(@tweet), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-      </div>
-    <% end %> 
-   
-    <%= link_to 'Back to tweets', tweets_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    
+      <% if @tweet.likes.exists?(user_id: current_user.id) %> 
+        <div class="inline-flex rounded-md shadow-sm" role="group">
+          <%= button_to "Unlike Tweet", unlike_tweet_path, method: :delete, class: "px-4 py-2 text-sm font-medium text-purple-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white" %>
+          <%= link_to 'Back to tweets', tweets_path, class: "px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white" %>
+        </div>
+      <% else %>
+        <div class="inline-flex rounded-md shadow-sm" role="group">
+          <%= button_to "Like tweet", like_tweet_path, method: :post, class: "px-4 py-2 text-sm font-medium text-pink-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white" %>
+          <%= link_to 'Back to tweets', tweets_path, class: "px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white" %>
+        </div>
+      <% end %>
+
+      <%if @tweet.user_id == current_user.id %>
+        <div class="inline-flex mt-1 rounded-md shadow-sm" role="group">
+          <%= link_to 'Edit tweet', edit_tweet_path(@tweet), class: "px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white" %>
+          <%= button_to 'Delete tweet', tweet_path(@tweet), method: :delete, class: "px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white" %>
+        </div>
+      <% end %>
+    </div>
   </div>
-</div>
 
 </section>
 <section class="mt-5">
 
-<h1> Comments </h1>
-
-  <div class="flex justify-between items-center">
+  <div class="flex justify-between mx-1 items-center">
     <% if user_signed_in? %>
-      <%= render "comments/form", comment: @comment %>
+      <%= render "comments/form", tweet: @tweet, comment: @comment %>
     <% end %>
   </div>
 
-  <div id="comments" class="min-w-full">
+  <div id="comments" class="min-w-full mx-1">
     <%= render @comments %>
   </div>
 
