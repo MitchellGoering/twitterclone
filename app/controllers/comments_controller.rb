@@ -3,7 +3,6 @@ class CommentsController < ApplicationController
 
   # GET /comments or /comments.json
   def index
-    
     @comment = Comment.new
     @comments = Comment.includes(:user).order(created_at: :desc)
   end
@@ -27,7 +26,6 @@ class CommentsController < ApplicationController
     @tweet = Tweet.find(params[:tweet_id])
     @comment = @tweet.comments.new(comment_params)
     @comment.user = current_user
-
     respond_to do |format|
       if @comment.save
         format.html { redirect_to tweet_path(@tweet), notice: "Comment was successfully created." }
@@ -55,7 +53,6 @@ class CommentsController < ApplicationController
   # DELETE /comments/1 or /comments/1.json
   def destroy
     @comment.destroy
-
     respond_to do |format|
       format.html { redirect_to comments_url, notice: "Comment was successfully destroyed." }
       format.json { head :no_content }
@@ -65,8 +62,7 @@ class CommentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_comment
-      @comment = Comment.find(params[:id])
-      
+      @comment = Comment.find(params[:id]) 
     end
 
     # Only allow a list of trusted parameters through.

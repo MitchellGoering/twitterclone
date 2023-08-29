@@ -1,6 +1,5 @@
 <div>
 <section>
-
   <div class="mx-auto md:w-2/3 w-full flex">
     <div class="mx-auto">
       <% if notice.present? %>
@@ -29,10 +28,9 @@
       <% end %>
     </div>
   </div>
-
 </section>
-<section class="mt-5">
 
+<section class="mt-5">
   <div class="flex justify-between mx-1 items-center">
     <% if user_signed_in? %>
       <%= render "comments/form", tweet: @tweet, comment: @comment %>
@@ -42,5 +40,4 @@
   <div id="comments" class="min-w-full mx-1">
     <%= render @comments %>
   </div>
-
 </section>

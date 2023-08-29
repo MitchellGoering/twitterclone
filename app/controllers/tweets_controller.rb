@@ -20,7 +20,6 @@ class TweetsController < ApplicationController
     @comments = @tweet.comments
     @comment = Comment.new
     @likes = @tweet.likes.count
-
   
   end
 
@@ -64,7 +63,6 @@ class TweetsController < ApplicationController
   # DELETE /tweets/1 or /tweets/1.json
   def destroy
     @tweet.destroy
-
     respond_to do |format|
       format.html { redirect_to tweets_url, notice: "Tweet was successfully destroyed." }
       format.json { head :no_content }
