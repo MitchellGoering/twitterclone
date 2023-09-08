@@ -9,13 +9,11 @@ class TweetsController < ApplicationController
     @tweet.likes.find_by(user: current_user).delete
   end
 
-  # GET /tweets or /tweets.json
   def index
     @tweet = Tweet.new
     @tweets = Tweet.includes(:user).order(created_at: :desc)
   end
 
-  # GET /tweets/1 or /tweets/1.json
   def show
     @comments = @tweet.comments
     @comment = Comment.new
@@ -23,16 +21,13 @@ class TweetsController < ApplicationController
   
   end
 
-  # GET /tweets/new
   def new
     @tweet = Tweet.new
   end
 
-  # GET /tweets/1/edit
   def edit
   end
 
-  # POST /tweets or /tweets.json
   def create
     @tweet = current_user.tweets.new(tweet_params)
 
@@ -47,7 +42,6 @@ class TweetsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /tweets/1 or /tweets/1.json
   def update
     respond_to do |format|
       if @tweet.update(tweet_params)
@@ -60,7 +54,6 @@ class TweetsController < ApplicationController
     end
   end
 
-  # DELETE /tweets/1 or /tweets/1.json
   def destroy
     @tweet.destroy
     respond_to do |format|
@@ -70,12 +63,10 @@ class TweetsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_tweet
       @tweet = Tweet.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def tweet_params
       params.require(:tweet).permit(:tweet)
     end
